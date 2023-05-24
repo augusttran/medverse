@@ -1,0 +1,33 @@
+server:
+  port: 9999
+
+info:
+  app:
+    name: MedVerse Dashboard Application
+    description: This application is built to manage system metrics
+    version: 1.0
+spring:
+  application:
+    name: METRICS-SERVICE
+  profiles:
+    active: metrics
+  main:
+    allow-bean-definition-overriding: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+      database-platform: org.hibernate.dialect.PostgreSQL81Dialect
+    datasource:
+      url: jdbc:postgresql://localhost:5432/Capstone
+      username: postgres
+      password: sample+password
+      driver-class-name: org.postgresql.Driver
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL81Dialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Capstone
+    username: postgres
+    password: sample+password
+log:
+  app-name: metrics

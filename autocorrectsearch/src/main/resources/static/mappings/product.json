@@ -1,0 +1,10 @@
+{
+  "properties" : {
+    "labeller" : {
+      "type" : "text"
+    },
+    "name" : {
+      "type" : "text"
+    }
+  }
+}

@@ -1,0 +1,85 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'druginfo.service'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//	implementation 'org.springframework.cloud:spring-cloud-gcp-starter-sql-postgres'
+    // https://mvnrepository.com/artifact/com.google.cloud/google-cloud-core
+    implementation 'com.google.cloud:google-cloud-core:2.5.6'
+    implementation 'com.google.cloud:spring-cloud-gcp-starter:3.1.0'
+
+    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.1.1'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+    // https://mvnrepository.com/artifact/io.r2dbc/r2dbc-spi
+    implementation 'io.r2dbc:r2dbc-spi:0.9.0.RELEASE'
+    // https://mvnrepository.com/artifact/io.r2dbc/r2dbc-postgresql
+    implementation 'io.r2dbc:r2dbc-postgresql:0.8.11.RELEASE'
+    // https://mvnrepository.com/artifact/com.ning/async-http-client
+    implementation 'com.ning:async-http-client:1.9.40'
+
+    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.1.0'
+    // https://mvnrepository.com/artifact/com.google.cloud/google-cloud-firestore
+//	implementation 'com.google.cloud:google-cloud-firestore:2.6.1'
+    // https://mvnrepository.com/artifact/com.google.cloud.sql/postgres-socket-factory
+    implementation 'com.google.cloud.sql:postgres-socket-factory:1.4.4'
+    implementation 'org.postgresql:postgresql:42.1.4'
+//	implementation 'hikari-cp:hikari-cp:2.13.0'
+    implementation 'com.zaxxer:HikariCP:3.2.0'
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-core
+    implementation 'org.springframework:spring-core:5.3.15'
+    //implementation 'org.springframework.boot:spring-boot-sstarter-data-redis'
+// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-zuul
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul:2.2.6.RELEASE'
+    //implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'junit:junit:4.12'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.6.4'
+//    implementation 'org.springframework.boot:spring-boot-starter-tomcat'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+    implementation 'com.google.cloud:google-cloud-translate:2.1.13'
+    //	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+//    implementation 'org.springframework.cloud:spring-cloud-gcp-dependencies:1.2.8.RELEASE'
+//    implementation("org.springframework.cloud:spring-cloud-gcp-starter-data-firestore")
+//    implementation 'com.google.firebase:firebase-admin:8.1.0'
+
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    compileOnly('org.springframework.boot:spring-boot-starter-webflux')
+    compileOnly('org.springframework.boot:spring-boot-starter-data-redis-reactive')
+    //Spring Metrics
+    compileOnly 'org.springframework.metrics:spring-metrics:latest.release'
+    compileOnly 'io.prometheus:simpleclient_common:latest.release'
+//	compile group: 'org.springframework.cloud', name: 'spring-cloud-gcp-starter'
+    compileOnly 'com.google.cloud.sql:cloud-sql-connector-r2dbc-postgres:1.4.4'
+    compileOnly 'ch.qos.logback:logback-classic:1.1.2'
+
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'druginfo.service.read.ReadApplication'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}

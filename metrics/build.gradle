@@ -1,0 +1,56 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'druginfo.service'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client
+//	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.1.1'
+//	implementation("org.springframework.cloud:spring-cloud-gcp-data-firestore")
+//	implementation("org.springframework.cloud:spring-cloud-gcp-starter-data-firestore")
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+//	implementation 'io.r2dbc:r2dbc-spi:0.9.0.RELEASE'
+	// https://mvnrepository.com/artifact/io.r2dbc/r2dbc-postgresql
+//	implementation 'io.r2dbc:r2dbc-postgresql:0.8.11.RELEASE'
+	implementation 'org.eclipse.persistence:javax.persistence:2.2.0'
+// https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+//	implementation 'org.hibernate:hibernate-core:5.2.1.Final'
+//	implementation 'org.hibernate:hibernate-entitymanager:5.4.4.Final'
+
+	implementation 'org.postgresql:postgresql:42.2.1'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.1.0'
+	implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.6.3'
+// https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.6.3'
+	implementation 'org.springframework.security:spring-security-messaging'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+test {
+	useJUnitPlatform()
+}
