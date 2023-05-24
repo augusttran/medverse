@@ -1,0 +1,8 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: read
+  labels:
+    app: read-service-app
+spec:
+  replicas: 1

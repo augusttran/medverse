@@ -1,0 +1,56 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: gateway
+  main:
+    allow-circular-references: true
+  cloud:
+    gateway:
+      discovery:
+        enabled: true
+        locator:
+          lower-case-service-id: true
+          enabled: true
+      routes:
+        - id: alert
+          uri: http://127.0.0.1:8082/
+          predicates:
+            - Path=/api/alert/**
+        - id: authentication
+          uri: http://127.0.0.1:8088/
+          predicates:
+            - Path=/api/authentication/**
+        - id: autocorrectsearch
+          uri: lb://SEARCH-SERVICE/
+          predicates:
+              - Path=/api/search2/**, /api/suggestion/**
+        - id: read
+          uri: lb://READ-SERVICE/
+#          uri: http://localhost:8081/
+          predicates:
+            - Path=/api/drugs/**, /api/products/**, /api/pills/**, /api/interactions/**, /api/trends/**
+          filters:
+            - RewritePath=/api/drugs(?<segment>.*), /api/drugs/$\{segment}, /api/products(?<segment>.*), /api/products/$\{segment}, /api/pills(?<segment>.*), /api/pills/$\{segment}, /api/interactions(?<segment>.*), /api/interactions/$\{segment}
+        - id: metrics
+          uri: http://127.0.0.1:9999/
+          predicates:
+            - Path=/api/dbstats/**, /api/trafficcollector/**, /api/medicines/**
+          filters:
+            - RewritePath=/api/dbstats(?<segment>.*), /api/dbstats/$\{segment}, /api/trafficcollector(?<segment>.*), /api/trafficcollector/$\{segment}
+eureka:
+  client:
+    registerWithEureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+
+
+
